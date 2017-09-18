@@ -92,9 +92,15 @@ Events.setUpEvents = function () {
   });
 }
 
-Events.setupApplyPattern = function (button, pattern) {
+Events.setupCheckPattern = function (button, pattern) {
   button.addEventListener("click", function () {
     UI.applyPattern(pattern);
+  });
+}
+
+Events.setupSelectPattern = function (button, pattern) {
+  button.addEventListener("click", function () {
+    UI.applyPattern(pattern, UI.output_image);
   });
 }
 

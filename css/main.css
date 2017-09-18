@@ -25,6 +25,10 @@
   background-color: #38E156;
 }
 
+button {
+  cursor: pointer;
+}
+
 .primary-button {
   width: 100px;
   margin: 10px;
@@ -35,6 +39,7 @@
   padding: 10px;
   color: #fff;
   display: inline-block;
+  cursor: pointer;
 }
 
 .primary-button:focus {
@@ -130,7 +135,7 @@ h1 {
 
 #list div button {
   float: right;
-  width: 100px;
+  width: 80px;
 }
 
 #top-right .buttons-wrapper {
@@ -174,7 +179,7 @@ h1 {
   display: inline-block;
   vertical-align: top;
   margin-left: 30px;
-  margin-top: 20px;
+  margin-top: -30px;
 }
 
 #output-image {

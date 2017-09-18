@@ -124,18 +124,22 @@ UI.addPatternToList = function (code) {
 
   var list_item = document.createElement('div');
   var title = document.createElement('span');
-  var apply_button = document.createElement('button');
+  var check_button = document.createElement('button');
+  var select_button = document.createElement('button');
   var remove_button = document.createElement('button');
 
   title.innerHTML = "Padrão #" + code;
-  apply_button.innerHTML = "aplicar";
+  check_button.innerHTML = "ver";
+  select_button.innerHTML = "selecionar";
   remove_button.innerHTML = "remover";
 
-  Events.setupApplyPattern(apply_button, pattern);
+  Events.setupCheckPattern(check_button, pattern);
+  Events.setupSelectPattern(select_button, pattern);
   Events.setupRemovePattern(remove_button, list_item, list, code);
 
   list_item.appendChild(title);
-  list_item.appendChild(apply_button);
+  list_item.appendChild(check_button);
+  list_item.appendChild(select_button);
   list_item.appendChild(remove_button);
 
   list.appendChild(list_item);
