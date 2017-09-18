@@ -23,6 +23,10 @@ Events.setUpEvents = function () {
     UI.invertPattern();
   });
 
+  document.getElementById("random-pattern").addEventListener("click", function () {
+    UI.applyPattern(Pattern.random());
+  });
+
   document.getElementById("select-pattern").addEventListener("click", UI.selectPattern);
 
   document.getElementById("clear-list").addEventListener("click", function () {
@@ -31,20 +35,29 @@ Events.setUpEvents = function () {
   });
 
   document.getElementById("import-list").addEventListener("change", function (event) {
-    var _updatePatterns = function (patterns) {
-      Pattern.reload(patterns);
-      UI.reloadList();
-    }
-
     var file = event.target.files[0];
-    FileDealer.upload(file, _updatePatterns);
+    FileDealer.upload(file, Main.reloadPatterns);
   });
 
   document.getElementById("export-list").addEventListener("click", function () {
-    FileDealer.download(Pattern.store);
+    FileDealer.download(Pattern);
   });
 
-  document.getElementById("one-hopfield-pass").addEventListener("click", function () {
+  document.getElementById("create-network-from-list").addEventListener("click", function () {
+    if (Pattern.hasEmptyStore()) {
+      alert("\n"
+          + "Nenhum padrão armazenado para criar a rede.\n"
+          + "\n"
+          + "- Crie e salve um ou mais padrões\n"
+          + "- Importe um arquivo válido")
+      return;
+    }
+    Hopfield.reload(Pattern.store);
+  });
+
+  document.getElementById("full-async-pass").addEventListener("click", function () {
+    if (Events.hopfieldNotSet()) { return; }
+
     if (Hopfield.neurons === null) {
       Hopfield.neurons = UI.toPattern(UI.select_image);
     }
@@ -53,7 +66,8 @@ Events.setUpEvents = function () {
   });
 
   document.getElementById("run-hopfield").addEventListener("click", function () {
-    Hopfield.reload(Pattern.store);
+    if (Events.hopfieldNotSet()) { return; }
+
     var pattern = UI.toPattern(UI.select_image);
     var recovered_pattern = Hopfield.run(pattern);
     UI.applyPattern(recovered_pattern, UI.output_image);
@@ -77,4 +91,30 @@ Events.setUpEvents = function () {
     var disturbed_pattern = Pattern.disturb(select_pattern, intensity);
     UI.applyPattern(disturbed_pattern, UI.select_image);
   });
+}
+
+Events.setupApplyPattern = function (button, pattern) {
+  button.addEventListener("click", function () {
+    UI.applyPattern(pattern);
+  });
+}
+
+Events.setupRemovePattern = function (button, item, parent, code) {
+  button.addEventListener("click", function () {
+    parent.removeChild(item);
+    Pattern.remove(code);
+  });
+}
+
+Events.alert = function (message) {
+  console.log("ALERTA: ", message);
+}
+
+Events.hopfieldNotSet = function () {
+  if (Hopfield.weights === null) {
+    alert("Rede não inicializada. Clique em criar rede.");
+    return true;
+  }
+
+  return false;
 }

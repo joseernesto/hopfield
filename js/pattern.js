@@ -8,36 +8,39 @@ Pattern.reset = function () {
   Pattern.code = 0;
 };
 
-Pattern.reload = function (patterns) {
-  Pattern.reset();
-  Pattern.store = JSON.parse(JSON.stringify(patterns)); // deep copying object
+Pattern.hasEmptyStore = function () {
+  return Object.keys(Pattern.store).length === 0;
+}
 
-  var keys = Object.keys(Pattern.store).sort();
-  for (var i = 0; i < keys.length; i++) {
-    var code = parseInt(keys[i]);
-
-    if (isNaN(code || code < 0)) {
-      console.log("Error with pattern key = ", keys[i]);
-      console.log("Reseting patterns");
-      Patern.clear();
-    }
-
-    Pattern.code = Math.max(Pattern.code, code);
+Pattern.updateLocalStorage = function () {
+  if (Pattern.hasEmptyStore()) {
+    delete localStorage.hopfield;
+    return;
   }
 
-  Pattern.code++;
+  localStorage.hopfield = JSON.stringify(Pattern);
+
+  return;
+}
+
+Pattern.reload = function (copy) {
+  Pattern.store = JSON.parse(JSON.stringify(copy.store)); // deep-copying the object
+  Pattern.code = parseInt(copy.code);
+  Pattern.updateLocalStorage();
 
   return;
 };
 
 Pattern.save = function (pattern) {
-  Pattern.store[Pattern.code] = pattern;
+  Pattern.store[Pattern.code++] = pattern;
+  Pattern.updateLocalStorage();
 
-  return Pattern.code++;
+  return Pattern.code - 1;
 };
 
 Pattern.remove = function (code) {
   delete Pattern.store[code];
+  Pattern.updateLocalStorage();
 
   return;
 };
@@ -72,6 +75,17 @@ Pattern.disturb = function (pattern, intensity) {
 
   return disturbed;
 };
+
+Pattern.random = function () {
+  var pattern = Vec.new(PATTERN_SIZE, 1);
+  for (var i = 0; i < pattern.length; i++) {
+    if (Math.random() < 0.5) {
+      pattern[i] = -1;
+    }
+  }
+
+  return pattern;
+}
 
 Pattern.test = {
   invert: function () {

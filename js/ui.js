@@ -132,14 +132,10 @@ UI.addPatternToList = function (code) {
 
   title.innerHTML = "Padrão #" + code;
   apply_button.innerHTML = "aplicar";
-  apply_button.addEventListener("click", function () {
-    UI.applyPattern(pattern);
-  });
   remove_button.innerHTML = "remover";
-  remove_button.addEventListener("click", function () {
-    list.removeChild(list_item);
-    Pattern.remove(code);
-  });
+
+  Events.setupApplyPattern(apply_button, pattern);
+  Events.setupRemovePattern(remove_button, list_item, list, code);
 
   list_item.appendChild(title);
   list_item.appendChild(apply_button);

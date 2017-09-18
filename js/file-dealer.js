@@ -30,8 +30,8 @@ FileDealer.upload = function (file, done) {
   var reader = new FileReader();
 
   reader.onload = function (event) {
-    var patterns = JSON.parse(event.target.result);
-    done(patterns);
+    var local_copy = JSON.parse(event.target.result);
+    done(local_copy);
   }
 
   reader.readAsText(file);

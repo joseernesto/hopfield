@@ -169,7 +169,7 @@ h1 {
 #select-image,
 #output-image {
   cursor: default;
-  transform: scale(0.8);
+  transform: scale(0.6);
 }
 
 #output-image {

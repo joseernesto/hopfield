@@ -1,6 +1,6 @@
 const Hopfield = {
   size: 0,
-  weights: [],
+  weights: null,
   neurons: null,
   last_pass_neurons: null,
   patterns: ''
@@ -8,8 +8,9 @@ const Hopfield = {
 
 Hopfield.reset = function () {
   if (LOG) console.log("LOG: Hopfield.reset()");
+
   Hopfield.size = 0;
-  Hopfield.weights = [];
+  Hopfield.weights = null;
   Hopfield.neurons = null;
   Hopfield.last_pass_neurons = null;
   Hopfield.patterns = '';
@@ -18,6 +19,8 @@ Hopfield.reset = function () {
 }
 
 Hopfield.resetNeurons = function () {
+  if (LOG) console.log("LOG: Hopfield.resetNeurons()");
+
   Hopfield.neurons = null;
   Hopfield.last_pass_neurons = null;
 
@@ -26,21 +29,12 @@ Hopfield.resetNeurons = function () {
 
 Hopfield.init = function (size) {
   if (LOG) console.log("LOG: Hopfield.init(size)", size);
+
   Hopfield.size = size;
+  Hopfield.weights = [];
   for (var i = 0; i < size; i++) {
     Hopfield.weights.push(Vec.new(size, 0));
   }
-
-  return;
-}
-
-Hopfield.reload = function (patterns) {
-  if (LOG) console.log("LOG: Hopfield.reload(patterns)", JSON.stringify(patterns).hashCode());
-  if (Hopfield.patterns === JSON.stringify(patterns)) {
-    return;
-  }
-  Hopfield.reset();
-  Hopfield.setup(patterns);
 
   return;
 }
@@ -49,6 +43,7 @@ Hopfield.reload = function (patterns) {
 // {"0": [1, -1, -1, 1], "3": [-1, -1, -1, -1], "17": [1, 1, 1, -1]}
 Hopfield.setup = function (patterns) {
   if (LOG) console.log("LOG: Hopfield.setup(patterns)", JSON.stringify(patterns).hashCode());
+
   Hopfield.patterns = JSON.stringify(patterns);
   var number_of_patterns = Object.keys(patterns).length;
   Object.keys(patterns).sort().forEach(function (key) {
@@ -75,6 +70,18 @@ Hopfield.setup = function (patterns) {
   return;
 }
 
+Hopfield.reload = function (patterns) {
+  if (LOG) console.log("LOG: Hopfield.reload(patterns)", JSON.stringify(patterns).hashCode());
+
+  if (Hopfield.patterns === JSON.stringify(patterns)) {
+    return;
+  }
+  Hopfield.reset();
+  Hopfield.setup(patterns);
+
+  return;
+}
+
 Hopfield.singlePass = function (index) {
   var updated_neuron_value = Vec.dot(Hopfield.weights[index], Hopfield.neurons);
   Hopfield.neurons[index] = (updated_neuron_value >= 0 ? 1 : -1);
@@ -84,6 +91,7 @@ Hopfield.singlePass = function (index) {
 
 Hopfield.fullAsyncPass = function () {
   if (LOG) console.log("LOG: Hopfield.fullAsyncPass(), Hopfield.neurons", JSON.stringify(Hopfield.neurons).hashCode());
+
   Hopfield.last_pass_neurons = Hopfield.neurons.slice(0, Hopfield.size);
   var order = Vec.random(Hopfield.size);
   for (var i = 0; i < order.length; i++) {
@@ -94,6 +102,8 @@ Hopfield.fullAsyncPass = function () {
 }
 
 Hopfield.run = function (pattern) {
+  if (LOG) console.log("LOG: Hopfield.run(pattern)", JSON.stringify(pattern).hashCode());
+
   Hopfield.neurons = pattern.slice(0, pattern.length);
   Hopfield.last_pass_neurons = Vec.new(pattern.length, 0);
 
@@ -104,12 +114,4 @@ Hopfield.run = function (pattern) {
   }
 
   return Hopfield.neurons;
-}
-
-Hopfield.print = function () {
-  console.log("Hopfield Network");
-  console.log("size: ", Hopfield.size);
-  console.log("weights", Hopfield.weights);
-
-  return;
 }
