@@ -1,6 +1,5 @@
 const UI = {
   input_image: null,
-  select_image: null,
   output_image: null,
   painting: 1,
   is_mouse_down: 0
@@ -24,12 +23,10 @@ UI.newPixel = function (id) {
 
 UI.initImage = function () {
   UI.input_image = document.getElementById('input-image');
-  UI.select_image = document.getElementById('select-image');
   UI.output_image = document.getElementById('output-image');
   for (var i = 0; i < PATTERN_SIZE; i++) {
     var pixel = UI.newPixel(i);
     UI.input_image.appendChild(pixel);
-    UI.select_image.appendChild(pixel.cloneNode(true));
     UI.output_image .appendChild(pixel.cloneNode(true));
   }
 
@@ -102,7 +99,7 @@ UI.invertPattern = function (image) {
 
 UI.selectPattern = function () {
   var input_pattern = UI.toPattern();
-  UI.applyPattern(input_pattern, UI.select_image);
+  UI.applyPattern(input_pattern, UI.output_image);
 
   return;
 };

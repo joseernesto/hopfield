@@ -27,6 +27,19 @@ Events.setUpEvents = function () {
     UI.applyPattern(Pattern.random());
   });
 
+  document.getElementById("disturb-pattern").addEventListener("click", function() {
+    var intensity_input = document.getElementById("disturb-intensity");
+    var intensity = parseFloat(intensity_input.value);
+
+    if (isNaN(intensity) || intensity < 0 || intensity >= 1) {
+      intensity = 0.1;
+      intensity_input.value = intensity;
+    }
+
+    var disturbed_pattern = Pattern.disturb(UI.toPattern(), intensity);
+    UI.applyPattern(disturbed_pattern);
+  });
+
   document.getElementById("select-pattern").addEventListener("click", UI.selectPattern);
 
   document.getElementById("clear-list").addEventListener("click", function () {
@@ -59,7 +72,7 @@ Events.setUpEvents = function () {
     if (Events.hopfieldNotSet()) { return; }
 
     if (Hopfield.neurons === null) {
-      Hopfield.neurons = UI.toPattern(UI.select_image);
+      Hopfield.neurons = UI.toPattern(UI.output_image);
     }
     var recovered_pattern = Hopfield.fullAsyncPass();
     UI.applyPattern(recovered_pattern, UI.output_image);
@@ -68,7 +81,7 @@ Events.setUpEvents = function () {
   document.getElementById("run-hopfield").addEventListener("click", function () {
     if (Events.hopfieldNotSet()) { return; }
 
-    var pattern = UI.toPattern(UI.select_image);
+    var pattern = UI.toPattern(UI.output_image);
     var recovered_pattern = Hopfield.run(pattern);
     UI.applyPattern(recovered_pattern, UI.output_image);
   });
@@ -76,20 +89,6 @@ Events.setUpEvents = function () {
   document.getElementById("clear-output").addEventListener("click", function() {
     Hopfield.resetNeurons();
     UI.clearPattern(UI.output_image);
-  });
-
-  document.getElementById("disturb-pattern").addEventListener("click", function() {
-    var select_pattern = UI.toPattern(UI.select_image);
-    var intensity_input = document.getElementById("disturb-intensity");
-    var intensity = parseFloat(intensity_input.value);
-
-    if (isNaN(intensity) || intensity < 0 || intensity >= 1) {
-      intensity = 0.1;
-      intensity_input.value = intensity;
-    }
-
-    var disturbed_pattern = Pattern.disturb(select_pattern, intensity);
-    UI.applyPattern(disturbed_pattern, UI.select_image);
   });
 }
 

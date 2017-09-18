@@ -6,7 +6,6 @@
 }
 
 #input-image,
-#select-image,
 #output-image {
   width: 400px;
   height: 400px;
@@ -78,11 +77,11 @@ h1 {
   display: inline-block;
   position: relative;
   left: 10px;
-  bottom: 80px;
+  bottom: 16px;
 }
 
-#top-left .primary-button {
-  margin-top: 30px;
+#select-pattern {
+  margin-top: 40px;
 }
 
 
@@ -156,22 +155,32 @@ h1 {
 
 #bottom {
   width: 100%;
+  height: 360px;
+  overflow: hidden;
   border-top: 2px solid #AAA;
   padding-top: 20px;
+}
+
+#bottom h2 {
+  margin-top: 0;
+  margin-left: 40px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #aaa;
+  width: 360px;
 }
 
 #bottom .buttons-wrapper {
   width: 120px;
   display: inline-block;
   vertical-align: top;
+  margin-left: 30px;
+  margin-top: 20px;
 }
 
-#select-image,
 #output-image {
   cursor: default;
-  transform: scale(0.6);
-}
-
-#output-image {
-  float: right;
+  transform: scale(0.7);
+  position: relative;
+  left: 20px;
+  top: -60px;
 }

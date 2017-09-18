@@ -20,6 +20,9 @@
         <button id="clear-pattern" class="primary-button">Limpar</button>
         <button id="invert-pattern" class="primary-button">Inverter</button>
         <button id="random-pattern" class="primary-button">Aleatório</button>
+        <button id="disturb-pattern" class="primary-button">Perturbar</button>
+        <span>Intensidade</span>
+        <input id="disturb-intensity" placeholder="[0.0, 1.0)"></input>
         <button id="select-pattern" class="primary-button">Selecionar</button>
       </div>
     </div>
@@ -35,16 +38,13 @@
       </div>
     </div>
     <div id="bottom">
-      <div id="select-image"></div>
-      <div class="buttons-wrapper">
-        <button id="full-async-pass" class="primary-button">Full Async Pass</button>
-        <button id="run-hopfield" class="primary-button">Passar imagem pela rede</button>
-        <button id="clear-output" class="primary-button">Limpar saída</button>
-        <button id="disturb-pattern" class="primary-button">Perturbar padrão</button>
-        <span>Intensidade</span>
-        <input id="disturb-intensity" placeholder="[0.0, 1.0)"></input>
-      </div>
+      <h2>Rode sua rede de Hopfield aqui</h2>
       <div id="output-image"></div>
+      <div class="buttons-wrapper">
+        <button id="full-async-pass" class="primary-button">Um passo assíncrono completo</button>
+        <button id="run-hopfield" class="primary-button">Rodar rede até estabilizar</button>
+        <button id="clear-output" class="primary-button">Limpar</button>
+      </div>
     </div>
   </body>
 </html>
