@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+  </head>
+  <script src="js/settings.js"></script>
+  <script src="js/my-math.js"></script>
+  <script src="js/pattern.js"></script>
+  <script src="js/hopfield.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/events.js"></script>
+  <script src="js/file-dealer.js"></script>
+  <script src="js/main.js"></script>
+  <body>
+    <h1>Discover you Hopfield Network here :)</h1>
+    <div id="top-left">
+      <div id="input-image"></div>
+      <div class="buttons-wrapper">
+        <button id="save-pattern" class="primary-button">Salvar</button>
+        <button id="clear-pattern" class="primary-button">Limpar</button>
+        <button id="invert-pattern" class="primary-button">Inverter</button>
+        <button id="select-pattern" class="primary-button">Selecionar</button>
+      </div>
+    </div>
+    <div id="top-right">
+      <h2>Lista de padrões armazenados</h2>
+      <div id="list"></div>
+      <div class="buttons-wrapper">
+        <button id="clear-list" class="primary-button">Apagar todos</button>
+        <label for="import-list" class="primary-button">Importar</label>
+        <input id="import-list" type="file" accept=".json" />
+        <button id="export-list" class="primary-button">Exportar</button>
+      </div>
+    </div>
+    <div id="bottom">
+      <div id="select-image"></div>
+      <div class="buttons-wrapper">
+        <button id="one-hopfield-pass" class="primary-button">Full Async Pass</button>
+        <button id="run-hopfield" class="primary-button">Passar imagem pela rede</button>
+        <button id="clear-output" class="primary-button">Limpar saída</button>
+        <button id="disturb-pattern" class="primary-button">Perturbar padrão</button>
+        <span>Intensidade</span>
+        <input id="disturb-intensity" placeholder="[0.0, 1.0)"></input>
+      </div>
+      <div id="output-image"></div>
+    </div>
+  </body>
+</html>

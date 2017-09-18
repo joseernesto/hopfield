@@ -1,0 +1,177 @@
+
+/* Generics */
+
+* {
+  font-family: sans-serif;
+}
+
+#input-image,
+#select-image,
+#output-image {
+  width: 400px;
+  height: 400px;
+  cursor: cell;
+  display: inline-block;
+}
+
+.pixel {
+  width: 18px;
+  height: 18px;
+  border: 1px solid white;
+  display: inline-block;
+  background-color: #028E9B;
+}
+
+.pixel.active {
+  background-color: #38E156;
+}
+
+.primary-button {
+  width: 100px;
+  margin: 10px;
+  font-size: 16px;
+  border: none;
+  background-color: #C861D3;
+  border-radius: 4px;
+  padding: 10px;
+  color: #fff;
+  display: inline-block;
+}
+
+.primary-button:focus {
+  outline-width: 0;
+}
+
+.primary-button:hover {
+  background-color: #C437D3;
+}
+
+.primary-button:active {
+  background-color: #9702A7;
+}
+
+
+/* Heading */
+
+h1 {
+  padding: 8px 10px 20px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid black;
+  background-color: #60D6A7;
+  opacity: 0.8;
+}
+
+
+/* Top Left */
+
+#top-left {
+  width: 530px;
+  height: 410px;
+  display: inline-block;
+  vertical-align: top;
+  padding: 20px;
+  border-right: 2px solid #AAA;
+}
+
+#top-left .buttons-wrapper {
+  width: 120px;
+  display: inline-block;
+  position: relative;
+  left: 10px;
+  bottom: 80px;
+}
+
+#top-left .primary-button {
+  margin-top: 30px;
+}
+
+
+/* Top Right */
+
+#top-right {
+  width: 400px;
+  height: 410px;
+  display: inline-block;
+  vertical-align: top;
+  padding: 20px;
+  position: relative;
+  margin-left: 10px;
+}
+
+#top-right h2 {
+  text-align: center;
+  position: relative;
+  margin-top: 0;
+  border-bottom: solid 1px #888;
+}
+
+#list {
+  height: calc(100% - 50px - 80px);
+  overflow-y: scroll;
+  border: 4px solid rgba(83, 97, 120, 0.3);
+  border-radius: 5px;
+}
+
+#list div {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+}
+
+#list div:nth-child(2n) {
+  background-color: #def;
+}
+
+#list div:nth-child(2n + 1) {
+  background-color: #abc;
+}
+
+#list div:last-child {
+  border-bottom: none;
+}
+
+#list div button {
+  float: right;
+  width: 100px;
+}
+
+#top-right .buttons-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  bottom: -8px;
+}
+
+#top-right label.primary-button {
+  width: 80px;
+  text-align: center;
+  line-height: 36px;
+}
+
+#import-list {
+  display: none;
+}
+
+
+/* Bottom */
+
+#bottom {
+  width: 100%;
+  border-top: 2px solid #AAA;
+  padding-top: 20px;
+}
+
+#bottom .buttons-wrapper {
+  width: 120px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+#select-image,
+#output-image {
+  cursor: default;
+  transform: scale(0.8);
+}
+
+#output-image {
+  float: right;
+}
