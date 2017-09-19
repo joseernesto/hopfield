@@ -6,6 +6,7 @@ const Pattern = {
 Pattern.reset = function () {
   Pattern.store = {};
   Pattern.code = 0;
+  Pattern.updateLocalStorage();
 };
 
 Pattern.hasEmptyStore = function () {
@@ -78,8 +79,9 @@ Pattern.disturb = function (pattern, intensity) {
 
 Pattern.random = function () {
   var pattern = Vec.new(PATTERN_SIZE, 1);
+  var density = Math.random();
   for (var i = 0; i < pattern.length; i++) {
-    if (Math.random() < 0.5) {
+    if (Math.random() < density) {
       pattern[i] = -1;
     }
   }

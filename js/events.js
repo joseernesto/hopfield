@@ -13,6 +13,7 @@ Events.setUpEvents = function () {
   document.getElementById("save-pattern").addEventListener("click", function () {
     var code = Pattern.save(UI.toPattern());
     UI.addPatternToList(code);
+    UI.outdateNetwork();
   });
 
   document.getElementById("clear-pattern").addEventListener("click", function () {
@@ -50,6 +51,7 @@ Events.setUpEvents = function () {
   document.getElementById("import-list").addEventListener("change", function (event) {
     var file = event.target.files[0];
     FileDealer.upload(file, Main.reloadPatterns);
+    UI.outdateNetwork();
   });
 
   document.getElementById("export-list").addEventListener("click", function () {
@@ -66,6 +68,7 @@ Events.setUpEvents = function () {
       return;
     }
     Hopfield.reload(Pattern.store);
+    UI.networkUpdated();
   });
 
   document.getElementById("full-async-pass").addEventListener("click", function () {
@@ -105,13 +108,13 @@ Events.setUpEvents = function () {
   });
 
   document.getElementById("speed-up-animation").addEventListener("click", function() {
-    TIME_STEP.default /= 1.3;
-    TIME_STEP.flick /= 1.3;
+    TIME_STEP.default /= TIME_STEP.multiplier;
+    TIME_STEP.flick /= TIME_STEP.multiplier;
   });
 
   document.getElementById("slow-down-animation").addEventListener("click", function() {
-    TIME_STEP.default *= 1.3;
-    TIME_STEP.flick *= 1.3;
+    TIME_STEP.default *= TIME_STEP.multiplier;
+    TIME_STEP.flick *= TIME_STEP.multiplier;
   });
 }
 
@@ -131,6 +134,7 @@ Events.setupRemovePattern = function (button, item, parent, code) {
   button.addEventListener("click", function () {
     parent.removeChild(item);
     Pattern.remove(code);
+    UI.outdateNetwork();
   });
 }
 

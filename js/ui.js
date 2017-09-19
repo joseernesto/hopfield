@@ -187,3 +187,19 @@ UI.reloadList = function () {
 
   return;
 };
+
+UI.outdateNetwork = function () {
+  var create_network_button = document.getElementById("create-network-from-list");
+  create_network_button.innerHTML = "Atualizar rede";
+  create_network_button.removeAttribute("disabled");
+
+  return;
+}
+
+UI.networkUpdated = function () {
+  var create_network_button = document.getElementById("create-network-from-list");
+  create_network_button.innerHTML = "Rede atualizada";
+  create_network_button.setAttribute("disabled", "true");
+
+  return;
+}

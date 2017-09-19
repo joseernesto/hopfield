@@ -62,6 +62,25 @@ button {
   background-color: #9702A7;
 }
 
+#create-network-from-list {
+  background-color: #FF5555;
+}
+
+#create-network-from-list:hover {
+  background-color: #FF7878;
+}
+
+#create-network-from-list:active {
+  background-color: #EB2E2E;
+}
+
+#create-network-from-list[disabled],
+#create-network-from-list[disabled]:hover,
+#create-network-from-list[disabled]:active {
+  background-color: #FF7878;
+  cursor: not-allowed;
+}
+
 
 /* Heading */
 

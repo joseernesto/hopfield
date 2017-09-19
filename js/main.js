@@ -3,6 +3,7 @@ window.onload = function () {
   Events.setUpEvents();
   if (localStorage.hopfield) {
     Main.reloadPatterns(JSON.parse(localStorage.hopfield));
+    Hopfield.reload(Pattern.store);
   }
 }
 
