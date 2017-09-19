@@ -118,6 +118,23 @@ UI.toPattern = function (image) {
   return pattern;
 };
 
+UI.updatePixel = function (index, value) {
+  var pixels = UI.output_image.children;
+  if (value === 1) {
+    pixels[index].classList.add('active');
+  } else {
+    pixels[index].classList.remove('active');
+  }
+
+  return;
+}
+
+UI.togglePixelClass = function (index, htmlClass) {
+  UI.output_image.children[index].classList.toggle(htmlClass);
+
+  return;
+}
+
 UI.addPatternToList = function (code) {
   var pattern = Pattern.get(code);
   var list = document.getElementById("list");

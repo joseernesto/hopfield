@@ -78,6 +78,15 @@ Events.setUpEvents = function () {
     UI.applyPattern(recovered_pattern, UI.output_image);
   });
 
+  document.getElementById("run-slow-hopfield").addEventListener("click", function () {
+    if (Events.hopfieldNotSet()) { return; }
+
+    if (Hopfield.neurons === null) {
+      Hopfield.neurons = UI.toPattern(UI.output_image);
+    }
+    Hopfield.slowFullAsyncPass();
+  });
+
   document.getElementById("run-hopfield").addEventListener("click", function () {
     if (Events.hopfieldNotSet()) { return; }
 
@@ -89,6 +98,20 @@ Events.setUpEvents = function () {
   document.getElementById("clear-output").addEventListener("click", function() {
     Hopfield.resetNeurons();
     UI.clearPattern(UI.output_image);
+  });
+
+  document.getElementById("stop-animation").addEventListener("click", function() {
+    STOP_ANIMATION = true;
+  });
+
+  document.getElementById("speed-up-animation").addEventListener("click", function() {
+    TIME_STEP.default /= 1.3;
+    TIME_STEP.flick /= 1.3;
+  });
+
+  document.getElementById("slow-down-animation").addEventListener("click", function() {
+    TIME_STEP.default *= 1.3;
+    TIME_STEP.flick *= 1.3;
   });
 }
 

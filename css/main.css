@@ -25,6 +25,14 @@
   background-color: #38E156;
 }
 
+.pixel.red {
+  border-color: red;
+}
+
+.pixel.white {
+  background-color: white;
+}
+
 button {
   cursor: pointer;
 }

@@ -107,11 +107,73 @@ Hopfield.run = function (pattern) {
   Hopfield.neurons = pattern.slice(0, pattern.length);
   Hopfield.last_pass_neurons = Vec.new(pattern.length, 0);
 
-  var counter = 20;
   while (!Vec.equals(Hopfield.neurons, Hopfield.last_pass_neurons)) {
     Hopfield.fullAsyncPass();
-    if (--counter < 0) break;
   }
+
+  return Hopfield.neurons;
+}
+
+function oneAtATime(sequence) {
+  return function step() {
+    if (sequence.length === 0 || (STOP_ANIMATION && sequence.length % 5 === 0)) {
+      return;
+    }
+
+    var next_in_line = sequence.shift();
+    var func = next_in_line.func;
+    var time_to_wait_after_call = TIME_STEP[next_in_line.time_step_type];
+
+    func();
+    setTimeout(oneAtATime(sequence), time_to_wait_after_call);
+  };
+}
+
+function prepareTogglePixelClass(index, htmlClass, time_step_type) {
+  return {
+    func: function () {
+      UI.togglePixelClass(index, htmlClass);
+    },
+    time_step_type: time_step_type
+  };
+}
+
+function prepareUpdatePixel(index, value, time_step_type) {
+  return {
+    func: function () {
+      UI.updatePixel(index, value);
+    },
+    time_step_type: time_step_type
+  };
+}
+
+function preparePixelAnimation(index, updated_value) {
+  var animation = [];
+  animation.push(prepareTogglePixelClass(index, "red", "default"));
+  animation.push(prepareTogglePixelClass(index, "white", "flick"));
+  animation.push(prepareTogglePixelClass(index, "white", "zero"));
+  animation.push(prepareUpdatePixel(index, updated_value, "default"));
+  animation.push(prepareTogglePixelClass(index, "red", "zero"));
+
+  return animation;
+}
+
+Hopfield.slowFullAsyncPass = function () {
+  if (LOG) console.log("LOG: Hopfield.slowFullAsyncPass(), Hopfield.neurons", JSON.stringify(Hopfield.neurons).hashCode());
+
+  Hopfield.last_pass_neurons = Hopfield.neurons.slice(0, Hopfield.size);
+  var order = Vec.random(Hopfield.size);
+  var animation = [];
+  for (var i = 0; i < order.length; i++) {
+    Hopfield.singlePass(order[i]);
+
+    var next_animation_batch = preparePixelAnimation(order[i], Hopfield.neurons[order[i]]);
+    Array.prototype.push.apply(animation, next_animation_batch);
+  }
+
+  var animate = oneAtATime(animation);
+  STOP_ANIMATION = false;
+  animate();
 
   return Hopfield.neurons;
 }
